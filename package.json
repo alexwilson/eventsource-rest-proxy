@@ -1,0 +1,17 @@
+{
+  "name": "eventsource-rest-proxy",
+  "version": "1.0.0",
+  "main": "main.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "forever --minUptime 1000 --spinSleepTime 1000 main.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "forever": "^0.15.3",
+    "morgan": "^1.8.1",
+    "sse-channel": "^2.0.6",
+    "uuid": "^3.0.1"
+  }
+}
