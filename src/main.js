@@ -1,23 +1,14 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const morgan = require('morgan')
+const requestId = require('./middleware/requestId')
+const morgan = require('./middleware/morgan')
 const uuid = require('uuid/v4')
 const {createChannel, getAllChannels, channelExists, subscribeToChannel, postToChannel} = require('./channels.js')
 
 const app = express()
-
-// Parse JSON bodies.
+app.use(requestId)
 app.use(bodyParser.json())
-
-// Assign an ID to every request.
-app.use((req, res, next) => {
-  req.id = uuid()
-  next()
-})
-
-// Log all requests to stdout.
-morgan.token('id', req => req.id)
-app.use(morgan('Request: :id :remote-addr :method :url', {immediate: true}))
+app.use(morgan)
 
 // Handle POSTs to our endpoint.
 app.post('/v1/send(/:channel)?', (req, res) => {
