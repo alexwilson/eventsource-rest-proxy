@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "body-parser": "^1.17.1",
-    "express": "^4.15.2",
+    "express": "5.0.0-alpha.5",
     "forever": "^0.15.3",
     "morgan": "^1.8.1",
     "sse-channel": "^2.0.6",
