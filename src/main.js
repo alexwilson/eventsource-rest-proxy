@@ -21,7 +21,6 @@ app.post('/v1/send(/:channel)?', (req, res) => {
   const channel = req.params.channel || 'default'
 
   try {
-
     // Check that the channel exists.
     if (!channelExists(channel)) {
       const notFoundMessage = 'Channel Not Found'
@@ -44,12 +43,15 @@ app.post('/v1/send(/:channel)?', (req, res) => {
     const message = {id, event, data}
     postToChannel(message, channel)
     console.log(`Message: "${channel}" -- "${JSON.stringify(message)}"`)
-
   } catch (e) {
-    console.error(error.message)
+    console.error(e.message)
   }
 
   res.status(response.status).json(response)
+})
+
+app.get('/v1/channels', (req, res) => {
+  res.status(200).json(Array.from(getAllChannels()))
 })
 
 // Create new channels on the fly.

@@ -4,7 +4,9 @@
   "main": "main.js",
   "license": "MIT",
   "scripts": {
-    "start": "forever --minUptime 1000 --spinSleepTime 1000 main.js"
+    "start": "forever --minUptime 1000 --spinSleepTime 1000 main.js",
+    "test": "npm run lint",
+    "lint": "standard"
   },
   "dependencies": {
     "body-parser": "^1.17.1",
@@ -13,5 +15,8 @@
     "morgan": "^1.8.1",
     "sse-channel": "^2.0.6",
     "uuid": "^3.0.1"
+  },
+  "devDependencies": {
+    "standard": "^9.0.2"
   }
 }
