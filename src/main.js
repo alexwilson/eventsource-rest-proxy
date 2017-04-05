@@ -10,6 +10,8 @@ app.use(requestId)
 app.use(bodyParser.json())
 app.use(morgan)
 
+const canCreateNewChannels = process.env.CAN_CREATE_CHANNELS || false
+
 // Handle POSTs to our endpoint.
 app.post('/v1/send(/:channel)?', (req, res) => {
   const response = {
@@ -56,12 +58,21 @@ app.get('/v1/channels', (req, res) => {
 
 // Create new channels on the fly.
 app.put('/v1/channels/:channel', (req, res) => {
+  if (!canCreateNewChannels) {
+    res.status(403).json({
+      id: req.id,
+      status: 403,
+      details: 'Insufficient permissions.'
+    })
+  }
+
   const channel = req.params.channel
 
   if (channelExists(channel)) {
     res.status(400).json({
+      id: req.id,
       status: 400,
-      details: `Duplicate channel`
+      details: 'Duplicate channel'
     })
     return
   }
