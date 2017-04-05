@@ -98,6 +98,7 @@ app.get('/v1/subscribe(/:channel)?', (req, res) => {
     })
   }
   console.log(`Subscribe: ${req.id} to "${channel}"`)
+  res.header('x-accel-buffering', 'no')
   subscribeToChannel(req, res, channel)
 })
 
